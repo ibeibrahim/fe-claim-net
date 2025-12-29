@@ -7,6 +7,7 @@ import {
   Shield,
   Users,
 } from "lucide-react";
+import { Policy, PolicyStatus } from "./policy-types";
 
 export const stats = [
   {
@@ -163,5 +164,101 @@ export const claims = [
     amount: "Rp 45,000,000",
     date: "2024-12-26",
     polis: "POL-2024-001239",
+  },
+];
+
+export const policies: Policy[] = [
+  {
+    id: "POL-2024-001234",
+    customer: "John Doe",
+    type: "Conventional",
+    category: "MV4",
+    status: PolicyStatus.Active,
+    premium: "Rp 5,000,000",
+    expiry: "2025-01-01",
+  },
+  {
+    id: "POL-2024-001235",
+    customer: "Jane Smith",
+    type: "Sharia",
+    category: "PA",
+    status: PolicyStatus.Active,
+    premium: "Rp 2,500,000",
+    expiry: "2025-03-15",
+  },
+  {
+    id: "POL-2024-001236",
+    customer: "Bob Johnson",
+    type: "Conventional",
+    category: "MV2",
+    status: PolicyStatus.ExpiringSoon,
+    premium: "Rp 1,800,000",
+    expiry: "2025-01-10",
+  },
+  {
+    id: "POL-2024-001237",
+    customer: "Alice Brown",
+    type: "Conventional",
+    category: "TRAVEL",
+    status: PolicyStatus.Active,
+    premium: "Rp 500,000",
+    expiry: "2025-06-20",
+  },
+  {
+    id: "POL-2024-001238",
+    customer: "Charlie Wilson",
+    type: "Sharia",
+    category: "CARGO",
+    status: PolicyStatus.Expired,
+    premium: "Rp 12,000,000",
+    expiry: "2024-12-15",
+  },
+];
+
+export const customers = [
+  {
+    id: "CUS-001",
+    name: "John Doe",
+    email: "john@example.com",
+    phone: "081234567890",
+    policies: 2,
+    totalPremium: "Rp 7,500,000",
+    status: "Active",
+  },
+  {
+    id: "CUS-002",
+    name: "Jane Smith",
+    email: "jane@example.com",
+    phone: "082345678901",
+    policies: 1,
+    totalPremium: "Rp 2,500,000",
+    status: "Active",
+  },
+  {
+    id: "CUS-003",
+    name: "Bob Johnson",
+    email: "bob@example.com",
+    phone: "083456789012",
+    policies: 3,
+    totalPremium: "Rp 15,000,000",
+    status: "Active",
+  },
+  {
+    id: "CUS-004",
+    name: "Alice Brown",
+    email: "alice@example.com",
+    phone: "084567890123",
+    policies: 1,
+    totalPremium: "Rp 500,000",
+    status: "Inactive",
+  },
+  {
+    id: "CUS-005",
+    name: "Charlie Wilson",
+    email: "charlie@example.com",
+    phone: "085678901234",
+    policies: 2,
+    totalPremium: "Rp 18,000,000",
+    status: "Active",
   },
 ];
