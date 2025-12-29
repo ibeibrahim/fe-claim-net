@@ -1,0 +1,167 @@
+import {
+  FileText,
+  CheckCircle2,
+  Clock,
+  AlertTriangle,
+  DollarSign,
+  Shield,
+  Users,
+} from "lucide-react";
+
+export const stats = [
+  {
+    title: "Total Claims",
+    value: "1,284",
+    change: "+12.5%",
+    icon: FileText,
+    color: "text-primary",
+  },
+  {
+    title: "Approved",
+    value: "847",
+    change: "+8.2%",
+    icon: CheckCircle2,
+    color: "text-chart-2",
+  },
+  {
+    title: "Pending",
+    value: "312",
+    change: "-3.1%",
+    icon: Clock,
+    color: "text-chart-5",
+  },
+  {
+    title: "Rejected",
+    value: "125",
+    change: "+1.4%",
+    icon: AlertTriangle,
+    color: "text-destructive",
+  },
+];
+
+export const quickStats = [
+  {
+    title: "Total Payout (YTD)",
+    value: "Rp 12.4B",
+    change: "+18.2%",
+    changeText: "from last year",
+    icon: DollarSign,
+    color: "text-primary",
+  },
+  {
+    title: "Active Policies",
+    value: "45,231",
+    change: "+5.4%",
+    changeText: "from last month",
+    icon: Shield,
+    color: "text-primary",
+  },
+  {
+    title: "Total Customers",
+    value: "38,549",
+    change: "+892",
+    changeText: "new this month",
+    icon: Users,
+    color: "text-primary",
+  },
+];
+
+export const recentClaims = [
+  {
+    id: "CLM-001",
+    customer: "John Doe",
+    type: "MV4",
+    status: "Pending",
+    amount: "Rp 25,000,000",
+    date: "2024-12-29",
+  },
+  {
+    id: "CLM-002",
+    customer: "Jane Smith",
+    type: "PA",
+    status: "Approved",
+    amount: "Rp 15,000,000",
+    date: "2024-12-28",
+  },
+  {
+    id: "CLM-003",
+    customer: "Bob Johnson",
+    type: "MV2",
+    status: "In Review",
+    amount: "Rp 8,500,000",
+    date: "2024-12-28",
+  },
+  {
+    id: "CLM-004",
+    customer: "Alice Brown",
+    type: "TRAVEL",
+    status: "Pending",
+    amount: "Rp 5,200,000",
+    date: "2024-12-27",
+  },
+  {
+    id: "CLM-005",
+    customer: "Charlie Wilson",
+    type: "MV4",
+    status: "Rejected",
+    amount: "Rp 32,000,000",
+    date: "2024-12-27",
+  },
+];
+
+export const claims = [
+  {
+    id: "CLM-001",
+    customer: "John Doe",
+    type: "MV4",
+    status: "Pending",
+    amount: "Rp 25,000,000",
+    date: "2024-12-29",
+    polis: "POL-2024-001234",
+  },
+  {
+    id: "CLM-002",
+    customer: "Jane Smith",
+    type: "PA",
+    status: "Approved",
+    amount: "Rp 15,000,000",
+    date: "2024-12-28",
+    polis: "POL-2024-001235",
+  },
+  {
+    id: "CLM-003",
+    customer: "Bob Johnson",
+    type: "MV2",
+    status: "In Review",
+    amount: "Rp 8,500,000",
+    date: "2024-12-28",
+    polis: "POL-2024-001236",
+  },
+  {
+    id: "CLM-004",
+    customer: "Alice Brown",
+    type: "TRAVEL",
+    status: "Pending",
+    amount: "Rp 5,200,000",
+    date: "2024-12-27",
+    polis: "POL-2024-001237",
+  },
+  {
+    id: "CLM-005",
+    customer: "Charlie Wilson",
+    type: "MV4",
+    status: "Rejected",
+    amount: "Rp 32,000,000",
+    date: "2024-12-27",
+    polis: "POL-2024-001238",
+  },
+  {
+    id: "CLM-006",
+    customer: "Diana Lee",
+    type: "CARGO",
+    status: "Approved",
+    amount: "Rp 45,000,000",
+    date: "2024-12-26",
+    polis: "POL-2024-001239",
+  },
+];

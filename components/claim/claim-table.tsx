@@ -5,7 +5,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search, Filter } from "lucide-react";
 import { statusColors } from "@/lib/claim-utils";
 import { Claim } from "@/lib/claim-types";
 
@@ -13,14 +16,28 @@ interface ClaimTableProps {
   claims: Claim[];
 }
 
-export default function RecentClaimTable({ claims }: ClaimTableProps) {
+export default function ClaimTable({ claims }: ClaimTableProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Recent Claims</CardTitle>
-        <CardDescription>
-          Latest claim submissions requiring attention
-        </CardDescription>
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle>Claims List</CardTitle>
+            <CardDescription>
+              Total {claims.length} claims found
+            </CardDescription>
+          </div>
+          <div className="flex gap-2">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input placeholder="Search claims..." className="pl-9 w-64" />
+            </div>
+            <Button variant="outline">
+              <Filter className="h-4 w-4 mr-2" />
+              Filter
+            </Button>
+          </div>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
@@ -29,6 +46,9 @@ export default function RecentClaimTable({ claims }: ClaimTableProps) {
               <tr className="border-b">
                 <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">
                   Claim ID
+                </th>
+                <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">
+                  Policy No
                 </th>
                 <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">
                   Customer
@@ -45,6 +65,9 @@ export default function RecentClaimTable({ claims }: ClaimTableProps) {
                 <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">
                   Date
                 </th>
+                <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -55,6 +78,9 @@ export default function RecentClaimTable({ claims }: ClaimTableProps) {
                 >
                   <td className="py-3 px-2 text-sm font-medium text-primary">
                     {claim.id}
+                  </td>
+                  <td className="py-3 px-2 text-sm font-mono text-muted-foreground">
+                    {claim.polis}
                   </td>
                   <td className="py-3 px-2 text-sm">{claim.customer}</td>
                   <td className="py-3 px-2 text-sm">
@@ -74,6 +100,11 @@ export default function RecentClaimTable({ claims }: ClaimTableProps) {
                   </td>
                   <td className="py-3 px-2 text-sm text-muted-foreground">
                     {claim.date}
+                  </td>
+                  <td className="py-3 px-2 text-sm">
+                    <Button variant="ghost" size="sm">
+                      View
+                    </Button>
                   </td>
                 </tr>
               ))}
