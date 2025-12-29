@@ -28,33 +28,44 @@ export interface ClaimFormData {
   hp1: string;
   hp2: string;
 
-  // Vehicle Info (filled from Stage 1)
+  // Vehicle/Asset Info
+  outlet: string;
+  jenisBarang: string;
+  kondisi: string;
+  merk: string;
   tipe: string;
-  warna: string;
-  penggunaan: string;
+  subTipe: string;
   tahunPembuatan: string;
   nomorPolisi: string;
   nomorRangka: string;
   nomorMesin: string;
-  tanggalMulaiPolis: string;
-  tanggalAkhirPolis: string;
-  outstandingPremi: string;
-  uangPertanggungan: string;
+  warna: string;
+  penggunaan: string;
+
+  // Bank Info
+  namaBank: string;
+  anRekening: string;
+  nomorRekening: string;
 
   // Details
-  kondisi: string;
-  merk: string;
+  claimNo: string;
   kronologiKejadian: string;
+  kronologiLainKejadian: string;
   asuransi: string;
   status: string;
+  keteranganCancelApproval: string;
   perusahaan: string;
   area: string;
   cabang: string;
   jenisAsuransi: string;
   jenisKlaim: string;
   penyebabKlaim: string;
+  alamatKejadian: string;
   kotaKejadian: string;
   provinsiKejadian: string;
+  tanggalMulaiPolis: string;
+  tanggalAkhirPolis: string;
+  tanggalLaporan: string;
 
   // Filled from stages 2-6
   causeOfLoss: string;
@@ -62,6 +73,12 @@ export interface ClaimFormData {
   categoryInsured: string;
   kol: string;
   natureOfLoss: string;
+
+  // Detail Biaya (Cost Details)
+  estimasiBengkelLoss: string;
+  approveAssesor: string;
+  outstandingPremi: string;
+  uangPertanggungan: string;
   nilaiPertanggungan: string;
 
   // Deductible (Stage 6)
@@ -180,6 +197,8 @@ export const tableDrivenOptions = {
     "Jawa Barat",
     "Jawa Timur",
   ],
+  jenisBarang: ["Mobil", "Motor", "Elektronik", "Properti"],
+  outlet: ["Main Branch", "Sub Branch", "Online"],
 };
 
 export const initialFormData: ClaimFormData = {
@@ -198,35 +217,48 @@ export const initialFormData: ClaimFormData = {
   alamatNasabah: "",
   hp1: "",
   hp2: "",
+  outlet: "",
+  jenisBarang: "",
+  kondisi: "",
+  merk: "",
   tipe: "",
-  warna: "",
-  penggunaan: "",
+  subTipe: "",
   tahunPembuatan: "",
   nomorPolisi: "",
   nomorRangka: "",
   nomorMesin: "",
-  tanggalMulaiPolis: "",
-  tanggalAkhirPolis: "",
-  outstandingPremi: "",
-  uangPertanggungan: "",
-  kondisi: "",
-  merk: "",
+  warna: "",
+  penggunaan: "",
+  namaBank: "",
+  anRekening: "",
+  nomorRekening: "",
+  claimNo: "",
   kronologiKejadian: "",
+  kronologiLainKejadian: "",
   asuransi: "",
   status: "IN - LAPORAN DATA MASUK",
+  keteranganCancelApproval: "",
   perusahaan: "",
   area: "",
   cabang: "",
   jenisAsuransi: "",
   jenisKlaim: "",
   penyebabKlaim: "",
+  alamatKejadian: "",
   kotaKejadian: "",
   provinsiKejadian: "",
+  tanggalMulaiPolis: "",
+  tanggalAkhirPolis: "",
+  tanggalLaporan: "",
   causeOfLoss: "",
   interestInsured: "",
   categoryInsured: "",
   kol: "",
   natureOfLoss: "",
+  estimasiBengkelLoss: "",
+  approveAssesor: "",
+  outstandingPremi: "",
+  uangPertanggungan: "",
   nilaiPertanggungan: "",
   deductibleKategori: "",
   deductibleDeskripsi: "",
