@@ -16,9 +16,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { isAxiosError } from "axios";
+import api from "@/lib/api";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { refreshUser } = useAuth();
+
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -28,17 +33,61 @@ export default function LoginPage() {
   });
   const [error, setError] = useState("");
 
+  const getCsrfToken = async () => {
+    try {
+      await api.get("/sanctum/csrf-cookie");
+    } catch (error) {
+      console.error("Failed to get CSRF token:", error);
+      throw error;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
 
-    // Simulate authentication delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
     // Mock authentication - in production, this would call an API
     if (formData.email && formData.password) {
-      router.push("/dashboard");
+      try {
+        await getCsrfToken();
+        const response = await api.post("/api/v1/auth", {
+          email: formData.email,
+          password: formData.password,
+        });
+        console.log(response.request);
+        if (response.status === 200) {
+          console.log("login success");
+          console.log(response.data);
+          await refreshUser();
+          router.push("/dashboard");
+        }
+      } catch (error) {
+        let errorMessage = "Terjadi kesalahan yang tidak diketahui.";
+        if (isAxiosError(error) && error.response) {
+          const status = error.response.status;
+          const message =
+            error.response.data.message || error.response.data.error;
+
+          if (status === 401) {
+            errorMessage = "Email atau password salah.";
+          } else if (status === 403) {
+            errorMessage = "Akses ditolak. Anda bukan admin.";
+          } else if (status === 404) {
+            errorMessage = "Endpoint tidak ditemukan.";
+          } else if (status === 429) {
+            errorMessage = "Terlalu banyak percobaan login. Coba lagi nanti.";
+          } else if (status === 500) {
+            errorMessage = "Server error. Silakan coba lagi nanti.";
+          } else {
+            errorMessage = message || errorMessage;
+          }
+        } else if (isAxiosError(error) && error.request) {
+          errorMessage =
+            "Tidak dapat terhubung ke server. Periksa koneksi internet Anda.";
+        }
+        setError(errorMessage);
+      }
     } else {
       setError("Please enter your email and password");
     }

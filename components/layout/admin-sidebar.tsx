@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { usePathname, useRouter } from "next/navigation";
+import { cn, getInitials } from "@/lib/utils";
 import {
   LayoutDashboard,
   FileText,
@@ -12,9 +12,11 @@ import {
   FileCheck,
   ChevronLeft,
   ChevronRight,
+  LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -26,8 +28,25 @@ const navItems = [
 ];
 
 export function AdminSidebar() {
+  const router = useRouter();
   const pathname = usePathname();
+  const { user, loading, logout } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } finally {
+      router.push("/");
+      router.refresh();
+    }
+  };
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/");
+    }
+  }, [loading, router, user]);
 
   return (
     <aside
@@ -80,20 +99,48 @@ export function AdminSidebar() {
           );
         })}
       </nav>
+      <nav className="p-2 space-y-1">
+        <Button
+          size={"lg"}
+          variant={"ghost"}
+          onClick={loading ? () => {} : handleLogout}
+          className="flex w-full items-center justify-start gap-3 px-3 py-2 hover:bg-destructive/20 text-white border-transparent hover:border-destructive border-2 transition-colors "
+        >
+          <LogOut className="h-5 w-5 shrink-0" />
+          {!collapsed && <span>Log Out</span>}
+        </Button>
+      </nav>
 
       <div className="p-4 border-t border-sidebar-border">
-        {!collapsed && (
+        {!collapsed && !loading ? (
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 rounded-full bg-sidebar-accent flex items-center justify-center">
-              <span className="text-sm font-medium">AD</span>
+              <span className="text-sm font-medium">
+                {getInitials(user?.name)}
+              </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">Admin User</p>
+              <p className="text-sm font-medium truncate">{user?.name}</p>
               <p className="text-xs text-sidebar-foreground/70 truncate">
-                admin@megainsurance.com
+                {user?.email}
               </p>
             </div>
           </div>
+        ) : (
+          !collapsed &&
+          loading && (
+            <div className="flex items-center gap-3">
+              <div className="h-8 w-8 rounded-full bg-sidebar-accent flex items-center justify-center">
+                <span className="text-sm font-medium">AD</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium truncate">Loading...</p>
+                <p className="text-xs text-sidebar-foreground/70 truncate">
+                  Loading...
+                </p>
+              </div>
+            </div>
+          )
         )}
       </div>
     </aside>
